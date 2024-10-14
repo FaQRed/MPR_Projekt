@@ -1,11 +1,12 @@
-package pl.edu.pjatk.MPR_Projekt.controllers;
+package pl.edu.pjatk.MPR_Projekt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.MPR_Projekt.model.Pudel;
-import pl.edu.pjatk.MPR_Projekt.services.PudelService;
+import pl.edu.pjatk.MPR_Projekt.service.PudelService;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -23,8 +24,8 @@ public class MyRestController {
         return this.pudelService.getPudelList();
     }
     @GetMapping("/{id}")
-    public Pudel getById(@PathVariable int id) {
-        return this.pudelService.getPudelLById(id);
+    public Optional<Pudel> getById(@PathVariable Long id) {
+        return this.pudelService.getPudelById(id);
     }
 
     @PostMapping
@@ -33,12 +34,22 @@ public class MyRestController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable Long id) {
         this.pudelService.deletePudelById(id);
     }
 
-    @PutMapping("{id}")
-    public void update(@PathVariable int id, @RequestBody Pudel pudel) {
+    @PutMapping("/id/{id}")
+    public void update(@PathVariable Long id, @RequestBody Pudel pudel) {
         this.pudelService.updatePudel(id, pudel);
+    }
 
-    }}
+    @GetMapping("/name/{name}")
+    public List<Pudel> getByName(@PathVariable String name){
+       return this.pudelService.getPudelByName(name);
+    }
+    @GetMapping("/age/{age}")
+    public List<Pudel> getByAge(@PathVariable int age){
+        return this.pudelService.getPudelByAge(age);
+    }
+
+}
