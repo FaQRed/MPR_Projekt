@@ -25,11 +25,31 @@ public class PudelService {
         this.pudelList.add(pudel);
     }
 
-    public void deletePudelById(int id) {
-        this.pudelList.remove(id);
-    }
 
     public Pudel getPudelLById(int id) {
-        return this.pudelList.get(id);
+        if (id >= 0 && id < pudelList.size()) {
+            return pudelList.get(id);
+        } else {
+            throw new IndexOutOfBoundsException("No Pudel found with the given ID.");
+        }
+    }
+
+    public void deletePudelById(int id){
+        if(id >=0 && id < pudelList.size()){
+            pudelList.remove(id);
+        } else {
+            throw new IndexOutOfBoundsException("No Pudel found with the given ID.");
+        }
+    }
+
+    public void updatePudel(int id, Pudel updatedPudel) {
+        if (id >= 0 && id < pudelList.size()) {
+            Pudel pudel = pudelList.get(id);
+            pudel.setName(updatedPudel.getName());
+            pudel.setAge(updatedPudel.getAge());
+            pudel.setClasification(updatedPudel.getClasification());
+        } else {
+            throw new IndexOutOfBoundsException("No Pudel found with the given ID.");
+        }
     }
 }

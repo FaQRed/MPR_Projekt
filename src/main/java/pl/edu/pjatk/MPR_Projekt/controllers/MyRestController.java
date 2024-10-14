@@ -9,32 +9,36 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/pudel")
 public class MyRestController {
-    private PudelService pudelSrvice;
+    private PudelService pudelService;
 
     @Autowired
-    public MyRestController(PudelService pudelSrvice) {
-        this.pudelSrvice = pudelSrvice;
+    public MyRestController(PudelService pudelService) {
+        this.pudelService = pudelService;
     }
 
-    @GetMapping("pudel/all")
+    @GetMapping("/all")
     public List<Pudel> getAll() {
-        return this.pudelSrvice.getPudelList();
+        return this.pudelService.getPudelList();
     }
-
-    @PostMapping("pudel")
-    public void create(@RequestBody Pudel pudel) {
-        this.pudelSrvice.createPudel(pudel);
-    }
-
-    @DeleteMapping("pudel/{id}")
-    public void delete(@PathVariable int id) {
-        this.pudelSrvice.deletePudelById(id);
-    }
-
-    @GetMapping("pudel/{}id")
+    @GetMapping("/{id}")
     public Pudel getById(@PathVariable int id) {
-        return this.pudelSrvice.getPudelLById(id);
+        return this.pudelService.getPudelLById(id);
     }
 
-}
+    @PostMapping
+    public void create(@RequestBody Pudel pudel) {
+        this.pudelService.createPudel(pudel);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id) {
+        this.pudelService.deletePudelById(id);
+    }
+
+    @PutMapping("{id}")
+    public void update(@PathVariable int id, @RequestBody Pudel pudel) {
+        this.pudelService.updatePudel(id, pudel);
+
+    }}
