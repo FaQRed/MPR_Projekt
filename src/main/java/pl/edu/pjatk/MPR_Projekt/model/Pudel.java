@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import pl.edu.pjatk.MPR_Projekt.exception.InvalidPudelDataException;
 
 @Entity
 public class Pudel{
@@ -16,6 +17,9 @@ public class Pudel{
     private Long Identificator;
 
     public long countIdentificator() {
+        if (this.name == null || this.name.isEmpty()) {
+            throw new InvalidPudelDataException("Name cannot be null or empty");
+        }
         long suma = 0;
         for (char c : this.name.toCharArray()) {
             suma += (int) c;
