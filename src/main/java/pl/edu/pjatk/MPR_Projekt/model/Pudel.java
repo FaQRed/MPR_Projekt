@@ -16,6 +16,17 @@ public class Pudel{
     private String clasification;
     private Long Identificator;
 
+    private byte[] image;
+
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     public long countIdentificator() {
         if (this.name == null || this.name.isEmpty()) {
             throw new InvalidPudelDataException("Name cannot be null or empty");

@@ -63,4 +63,14 @@ public class MyRestController {
         return new ResponseEntity<>(this.pudelService.getPudelByAge(age), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/pdf")
+    public ResponseEntity<byte[]> getPudelPdfById(@PathVariable Long id) {
+        byte[] pdfBytes = pudelService.generatePudelPdf(id);
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "inline; filename=pudel_" + id + ".pdf")
+                .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
+    }
+
+
 }
